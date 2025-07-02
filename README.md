@@ -14,14 +14,31 @@ pip install -e .
 
 ## Configuration
 
+### Environment Variables (Recommended)
+
+For security, it's recommended to use environment variables for your Square credentials:
+
+```bash
+export SQUARE_APPLICATION_ID="your_application_id"
+export SQUARE_LOCATION_ID="your_location_id"
+export SQUARE_ACCESS_TOKEN="your_access_token"
+```
+
+You can also create a `.env` file (make sure to add it to `.gitignore`) and load it using a library like `python-dotenv`.
+
+### Configuration File
+
 Add the following to your Goose configuration:
 
 ```yaml
 extensions:
   square_payments:
-    application_id: "your_application_id"
-    location_id: "your_location_id"
+    application_id: "${SQUARE_APPLICATION_ID}"
+    location_id: "${SQUARE_LOCATION_ID}"
+    access_token: "${SQUARE_ACCESS_TOKEN}"
 ```
+
+This will use the environment variables you've set.
 
 ## Usage
 
@@ -54,3 +71,14 @@ card_result = goose.use_tool("create_card_on_file", {
 ## Development
 
 This extension is built to work with the Square Web Payments SDK in the sandbox environment. For production use, update the SDK URL and ensure proper error handling.
+
+## Security Best Practices
+
+1. **Never commit sensitive credentials** directly in your code or configuration files.
+2. Always use environment variables for sensitive information.
+3. Add `.env` files to your `.gitignore` to prevent accidental commits.
+4. Regularly rotate your access tokens.
+5. If you suspect a token has been exposed:
+   - Immediately revoke the token in the Square Developer Dashboard
+   - Generate a new token
+   - Update your environment variables with the new token

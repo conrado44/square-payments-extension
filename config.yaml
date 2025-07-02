@@ -1,5 +1,5 @@
 extensions:
   square_payments:
-    application_id: "sandbox-sq0idb-PNinb0DahX2qpqq-cEEclg"
-    location_id: "LYQA581ZDVC8V"
-    access_token: "EAAAEPaLTZOz5428wvE2Wksz6nzLic8GLFPjEKNQvUFlsfTUXGIEmh4tBR4vgwiV"
+    application_id: "${SQUARE_APPLICATION_ID}"
+    location_id: "${SQUARE_LOCATION_ID}"
+    access_token: "${SQUARE_ACCESS_TOKEN}"

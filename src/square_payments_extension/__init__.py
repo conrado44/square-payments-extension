@@ -1,5 +1,6 @@
 """Square Payments Extension for Goose."""
 
+import os
 from typing import Any, Dict, List, Optional
 from square.client import Client
 from goose_core import Extension, Tool, ToolCall, ToolResult
@@ -16,18 +17,29 @@ class SquarePaymentsExtension(Extension):
 
     def setup(self, config: Dict[str, Any]) -> None:
         """Set up the extension with configuration."""
-        self.application_id = config.get('application_id')
-        self.location_id = config.get('location_id')
-        self.access_token = config.get('access_token')
+        # Try to get values from environment variables first, then fall back to config
+        self.application_id = os.environ.get('SQUARE_APPLICATION_ID') or self._expand_env_var(config.get('application_id'))
+        self.location_id = os.environ.get('SQUARE_LOCATION_ID') or self._expand_env_var(config.get('location_id'))
+        self.access_token = os.environ.get('SQUARE_ACCESS_TOKEN') or self._expand_env_var(config.get('access_token'))
         
         if not all([self.application_id, self.location_id, self.access_token]):
-            raise ValueError("application_id, location_id, and access_token are required in config")
+            raise ValueError("application_id, location_id, and access_token are required in config or environment variables")
         
         # Initialize Square client
         self.square_client = Client(
             access_token=self.access_token,
             environment='sandbox'  # Change to 'production' for live environment
         )
+            
+    def _expand_env_var(self, value: str) -> str:
+        """Expand environment variables in the given value."""
+        if not value or not isinstance(value, str):
+            return value
+            
+        if value.startswith('${') and value.endswith('}'):
+            env_var = value[2:-1]
+            return os.environ.get(env_var, '')
+        return value
 
     @Tool.tool("Create a customer record in Square")
     def create_customer(self, given_name: str, family_name: str, email_address: str) -> ToolResult:
