@@ -1,5 +1,36 @@
 # Square Payments Extension
 
+## Environment Setup
+
+### Using UV (Recommended)
+
+UV is a fast Python package installer and resolver recommended for Block/Square projects.
+
+1. Install the extension using the provided script:
+   ```bash
+   ./install_uv.sh
+   ```
+
+2. Activate the virtual environment:
+   ```bash
+   source .venv/bin/activate
+   ```
+
+### Using pip (Legacy)
+
+If you prefer using pip:
+
+1. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   ```
+
+2. Install the extension:
+   ```bash
+   pip install -e .
+   ```
+
 ## Environment Variables
 
 This extension requires the following environment variables to be set:

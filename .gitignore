@@ -20,12 +20,19 @@ wheels/
 .installed.cfg
 *.egg
 
+# Virtual environments
+venv/
+venv_*/
+.venv/
+env/
+ENV/
+
 # Environment variables
 .env
-.venv
-env/
-venv/
-ENV/
+
+# Hermit
+.hermit/state
+bin/
 
 # IDE files
 .idea/
@@ -33,9 +40,16 @@ ENV/
 *.swp
 *.swo
 
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
 # Logs
 *.log
-logs/
-
-# Local configuration
-config.local.yaml

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "square-payments-extension"
+version = "0.1.0"
+description = "Square Payments Extension for Goose"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Conrado Brenna" },
+]
+dependencies = [
+    "squareup>=42.0.0",
+]
+
+[project.entry-points."goose.extensions"]
+square_payments = "square_payments_extension:SquarePaymentsExtension"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/square_payments_extension"]
+
+[tool.hatch.build]
+only-packages = true

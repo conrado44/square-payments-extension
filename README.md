@@ -8,7 +8,31 @@ This extension allows Goose to handle payment card entry using Square's Web Paym
 
 ## Installation
 
+### Option 1: Using UV (Recommended)
+
+UV is a fast Python package installer and resolver. This is the recommended installation method at Block/Square.
+
 ```bash
+# Run the installation script
+./install_uv.sh
+```
+
+This script will:
+1. Install Hermit if not already installed
+2. Set up Python and UV using Hermit
+3. Create a virtual environment
+4. Install the package in development mode
+
+### Option 2: Using pip (Legacy)
+
+If you prefer using pip, you can still install the package with:
+
+```bash
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate
+
+# Install in development mode
 pip install -e .
 ```
 
